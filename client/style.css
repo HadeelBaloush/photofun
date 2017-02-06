@@ -1,0 +1,132 @@
+div .container {
+    width: 100%;
+    border: 1px solid gray;
+}
+
+header, footer {
+    padding: 1em;
+    color: white;
+    background-color: black;
+    clear: left;
+    text-align: center;
+}
+
+nav {
+    float: left;
+    max-width: 160px;
+    margin: 0;
+    padding: 1em;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+   
+nav ul a {
+    text-decoration: none;
+}
+
+article {
+    margin-left: 170px;
+    border-left: 1px solid gray;
+    padding: 1em;
+    overflow: hidden;
+}
+
+.clipart {
+    width: 100px;
+    height: 60px;
+}
+
+.allign {
+    display: -webkit-flex; 
+    -webkit-align-items: center; 
+    display: flex;
+    align-items: center;
+}
+
+/* css for the shiny buttons */
+.btn {
+  cursor: pointer;
+  margin: 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  padding: 10px;
+  font-size: 22px;
+  width: 130px;
+  height: 45px;
+  transition: .3s;
+  -webkit-transition: .3s;
+  -moz-transition: .3s;
+  -o-transition: .3s;
+  display: inline-block;
+}
+
+.btn:hover {
+  cursor: url(http://cur.cursors-4u.net/symbols/sym-1/sym46.cur), auto;
+}
+.blue {
+  color: #55acee;
+  border: 2px #55acee solid;
+}
+
+.blue:hover {
+  background-color: #55acee;
+  color: #fff
+}
+
+.green {
+  color: #2ecc71;
+  border: 2px #2ecc71 solid;
+}
+
+.green:hover {
+  color: #fff;
+  background-color: #2ecc71;
+}
+
+.red {
+  color: #e74c3c;
+  border: 2px #e74c3c solid;
+}
+
+.red:hover {
+  color: #fff;
+  background-color: #e74c3c;
+}
+
+.purple {
+  color: #9b59b6;
+  border: 2px #9b59b6 solid;
+}
+
+.purple:hover {
+  color: #fff;
+  background-color: #9b59b6;
+}
+
+.orange {
+  color: #e67e22;
+  border: 2px #e67e22 solid;
+}
+
+.orange:hover {
+  color: #fff;
+  background-color: #e67e22;
+}
+
+.black {
+  color: black;
+  border: 2px black solid;
+}
+
+.black:hover {
+  color: #fff;
+  background-color: black;
+}
+
+button {
+  padding-top: 30px;
+  text-align: center;
+}
