@@ -1,154 +1,109 @@
 <html ng-app='myApp' >
-<head>
- <!-- including css styles -->
- <link rel="stylesheet" href="style.css">
- <!-- including angular libraries -->
- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script> 
- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-route.min.js"></script>
- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.min.js"></script>
- <!-- including d3 libraries -->
- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
+  <head>
+    <!-- including css styles -->
+    <link rel="stylesheet" href="style.css">
+    <!-- including angular libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script> 
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.min.js"></script>
+    <!-- including d3 libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
+  </head>
 
-</head>
-
-<body>
+  <body>
     <div class="container" >
-       <header>
-           <h1>PhotoFun</h1>
-       </header>
+      <header>
+        <h1>PhotoFun</h1>
+      </header>
 
-       <nav>
-          <ul ng-controller="AppCtrl">
+      <nav>
+        <ul ng-controller="AppCtrl">
           <h3>Play with filters!</h3>
-            <!-- <li><a href="#">cool</a></li> -->
-            <li><button class="btn blue" id="blur">Blur!</button></li>
-            <li><button class="btn red" id="grayscale">Grayscale!</button></li>
-            <li><button class="btn green" id="sepia">Sepia!</button></li>
-            <li><button class="btn orange" id="invert">invert!</button></li>
-            <li><button class="btn purple" id="brightness">Brightness!</button></li>
-            <input type="text" id="brightValue" placeholder="Brightness %">
-            <li>
-            <button class="btn black" id="snap">Snap it!</button>
-            <button class="btn black" id="save">Save it!</button>
-           
-            </li>
-
+          <li><button class="btn blue" id="blur">Blur!</button></li>
+          <li><button class="btn red" id="grayscale">Grayscale!</button></li>
+          <li><button class="btn green" id="sepia">Sepia!</button></li>
+          <li><button class="btn orange" id="invert">invert!</button></li>
+          <li><button class="btn purple" id="brightness">Brightness!</button></li>
+          <input type="text" id="brightValue" placeholder="Brightness %">
+          <li>
+          <button class="btn black" id="snap">Snap it!</button>
+          <button class="btn black" id="save">Save it!</button>
+         
+          </li>
         </ul>
-    </nav>
+      </nav>
 
-   <!--  <nav ng-controller="AppCtrl">
-       <div ng-repeat="myImage in myImages">
-        <img class="clipart" ng-src="{{getImagePath(myImage)}}" />
+      <!--  <nav ng-controller="AppCtrl">
+          <div ng-repeat="myImage in myImages">
+          <img class="clipart" ng-src="{{getImagePath(myImage)}}" />
+      </div>
+      </nav> -->
+      <h1 id="here"></h1>
+
+      <video class="allign" id="video" width="500" height="400" autoplay></video>
+      <canvas class="allign" id="canvas" width="500" height="400"></canvas>
+
+      <footer>Copyright &copy; H.</footer>
     </div>
-</nav> -->
+    <script type="text/javascript">
+      // Grab elements, create settings, etc
+      var video = document.getElementById('video');
 
-<h1 id="here"></h1>
+      // Get access to the camera!
+      if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+          navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+              video.src = window.URL.createObjectURL(stream);
+              video.play();
+          });
+      }
 
-<video class="allign" id="video" width="500" height="400" autoplay></video>
-<canvas class="allign" id="canvas" width="500" height="400"></canvas>
-
-<footer>Copyright &copy; H.</footer>
-
-</div>
-
-<script type="text/javascript">
-//create d3 playground if it is allowed 
-// var board = d3.select("body").select("#here")
-// .append("svg")
-// .attr("height", "400px")
-// .attr("width", "600px")
-// .style("background-color", "#e2b856");
+      // var value = "20"
+      // video.setAttribute("style","-webkit-filter:grayscale(" + value + "%)")
 
 
-// function dragClip(){
-//     // console.log(name)
-//     // src = "photos/" + name;
+      //Trigger blur filter
+      document.getElementById("blur").addEventListener("click", function() {
+          video.setAttribute("style","-webkit-filter:blur(3px)")
+      });
 
-// var img = board.selectAll("image")
-//                .data([0]);
+      //Trigger grayscale filter
+      document.getElementById("grayscale").addEventListener("click", function() {
+          video.setAttribute("style","-webkit-filter:grayscale(1)")
+      });
 
-// img.enter()
-// .append("svg:image")
-// .attr("xlink:href", "1.png")
-// .attr("x", "60")
-// .attr("y", "60")
-// .attr("width", "100")
-// .attr("height", "60")
-// .attr("class", "moving");
-// }
+      //Trigger speia filter
+      document.getElementById("sepia").addEventListener("click", function() {
+          video.setAttribute("style","-webkit-filter:sepia(1)")
+      });
 
-// board.append("canvas")
-// .attr("height", "400px")
-// .attr("width", "600px")
-// .attr("id", "canvas");
+      //Trigger invert filter
+      document.getElementById("invert").addEventListener("click", function() {
+          video.setAttribute("style","-webkit-filter:invert(1)")
+      });
 
+      //Trigger brightness filter
+      document.getElementById("brightness").addEventListener("click", function() {
+          var val = document.getElementById('brightValue').value;
+          video.setAttribute("style","-webkit-filter:brightness(" + val + ")")
+      });
+          
+      //Elements for taking the snapshot
+      var canvas = document.getElementById('canvas');
+      var context = canvas.getContext('2d');
 
-// Grab elements, create settings, etc
-var video = document.getElementById('video');
+      //Trigger photo take
+      var img;
+      document.getElementById("snap").addEventListener("click", function() {
+          context.drawImage(video, 0, 0, 600, 400)
+          img = canvas.toDataURL("image/png");
+      });
 
-// Get access to the camera!
-if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-    navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
-        video.src = window.URL.createObjectURL(stream);
-        video.play();
-    });
-}
-
-// var value = "20"
-// video.setAttribute("style","-webkit-filter:grayscale(" + value + "%)")
-
-
-//Trigger blur filter
-document.getElementById("blur").addEventListener("click", function() {
-    video.setAttribute("style","-webkit-filter:blur(3px)")
-});
-
-//Trigger grayscale filter
-document.getElementById("grayscale").addEventListener("click", function() {
-    video.setAttribute("style","-webkit-filter:grayscale(1)")
-});
-
-//Trigger speia filter
-document.getElementById("sepia").addEventListener("click", function() {
-    video.setAttribute("style","-webkit-filter:sepia(1)")
-});
-
-//Trigger invert filter
-document.getElementById("invert").addEventListener("click", function() {
-    video.setAttribute("style","-webkit-filter:invert(1)")
-});
-
-
-
-//Trigger invert filter
-
-
-document.getElementById("brightness").addEventListener("click", function() {
-    var val = document.getElementById('brightValue').value;
-    video.setAttribute("style","-webkit-filter:brightness(" + val + ")")
-});
-    
-// Elements for taking the snapshot
-var canvas = document.getElementById('canvas');
-var context = canvas.getContext('2d');
-
-// Trigger photo take
-var img;
-document.getElementById("snap").addEventListener("click", function() {
-
-    context.drawImage(video, 0, 0, 600, 400)
-    img = canvas.toDataURL("image/png");
-});
-
-
-//save the snapshot
-document.getElementById("save").addEventListener("click", function() {
-    document.write('<img src="'+img+'"/>');
-});
-
-</script>
-
-<script src="angular.js"></script>
-</body>
+      //save the snapshot
+      document.getElementById("save").addEventListener("click", function() {
+          document.write('<img src="'+img+'"/>');
+      });
+    </script>
+    <script src="angular.js"></script>
+  </body>
 </html>
 

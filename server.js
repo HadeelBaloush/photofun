@@ -5,11 +5,6 @@ app.listen(port);
 app.use(express.static(__dirname + '/client'));
 
 
-// app.use(bodyParser.json());
-// app.use(express.static(__dirname + '/client'));
-
-// require('./middleware.js')(app, express);
-
 
 
 app.get('/test', function(req, res){
